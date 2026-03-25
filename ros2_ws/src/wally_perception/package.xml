@@ -2,10 +2,17 @@
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>wally_perception</name>
-  <version>0.0.0</version>
-  <description>TODO: Package description</description>
+  <version>0.1.0</version>
+  <description>Wally semantic segmentation pipeline using Isaac ROS U-Net with PeopleSemSegNet ShuffleSeg</description>
   <maintainer email="smit@todo.todo">smit</maintainer>
-  <license>TODO: License declaration</license>
+  <license>Apache-2.0</license>
+
+  <exec_depend>isaac_ros_image_proc</exec_depend>
+  <exec_depend>isaac_ros_dnn_image_encoder</exec_depend>
+  <exec_depend>isaac_ros_triton</exec_depend>
+  <exec_depend>isaac_ros_unet</exec_depend>
+  <exec_depend>isaac_ros_nitros</exec_depend>
+  <exec_depend>rclcpp_components</exec_depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>

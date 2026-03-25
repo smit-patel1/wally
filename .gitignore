@@ -1,7 +1,29 @@
-# ROS2 build artifacts
+# ROS2 build artifacts (workspace and top-level)
+build/
+install/
+log/
 ros2_ws/build/
 ros2_ws/install/
 ros2_ws/log/
+
+# Third-party ROS packages (cloned separately, not our code)
+ros2_ws/src/FAST_LIO/
+ros2_ws/src/livox_ros_driver2/
+
+# Docker (cloned NVIDIA repos — large, not our code)
+docker/
+
+# Cached libraries extracted from .deb packages
+scripts/lib/
+
+# Model files (large binaries, downloaded at runtime)
+*.plan
+*.onnx
+*.engine
+*.etlt
+
+# Archive (old workspace experiments)
+archive/
 
 # Python
 __pycache__/
@@ -11,3 +33,6 @@ __pycache__/
 .vscode/
 .idea/
 .history
+
+# OS
+.DS_Store
