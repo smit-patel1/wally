@@ -45,6 +45,16 @@ def generate_launch_description():
             'segmentation_camera_info_topic',
             default_value='/segmentation/camera_info_resized',
             description='Camera info for the segmentation mask'),
+
+        # TF Frames
+        DeclareLaunchArgument(
+            'global_frame',
+            default_value='map',
+            description='Global frame published by Fast-LIO'),
+        DeclareLaunchArgument(
+            'pose_frame',
+            default_value='base_link',
+            description='Robot pose frame from TF tree'),
     ]
 
     depth_image_topic = LaunchConfiguration('depth_image_topic')
@@ -53,6 +63,8 @@ def generate_launch_description():
     color_camera_info_topic = LaunchConfiguration('color_camera_info_topic')
     segmentation_mask_topic = LaunchConfiguration('segmentation_mask_topic')
     segmentation_camera_info_topic = LaunchConfiguration('segmentation_camera_info_topic')
+    global_frame = LaunchConfiguration('global_frame')
+    pose_frame = LaunchConfiguration('pose_frame')
 
     # ── Config ──────────────────────────────────────────────────────────
     wally_nvblox_dir = get_package_share_directory('wally_nvblox')
@@ -66,7 +78,10 @@ def generate_launch_description():
         name='nvblox_human_node',
         package='nvblox_ros',
         plugin='nvblox::NvbloxHumanNode',
-        parameters=[nvblox_config],
+        parameters=[nvblox_config, {
+            'global_frame': global_frame,
+            'pose_frame': pose_frame,
+        }],
         remappings=[
             # Depth camera (camera_0)
             ('camera_0/depth/image', depth_image_topic),
