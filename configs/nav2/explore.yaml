@@ -1,0 +1,25 @@
+#####################################################################################################
+#                                 explore_lite config                                               #
+#####################################################################################################
+
+explore_node:
+  ros__parameters:
+    # Frame names
+    robot_base_frame: base_link
+    costmap_topic: /global_costmap/costmap
+    costmap_updates_topic: /global_costmap/costmap_updates
+    visualize: true                                         # See the frontiers in RViz
+    
+
+    # Exploration logic
+    planner_frequency: 1.00         # Re-evaluate frontiers every 1 second (0.33 is 3 sec)
+    progress_timeout: 30.0          # Abandon goal if stuck for 30s
+    min_frontier_size: 10           # 10 cells × 0.05 m = 0.5m  Ignore gaps smaller than 0.5m (prevents chasing noise)
+    transform_tolerance: 0.5        # Makes explore not crash if the transform is unavailable briefly
+    
+    # Weighting: Balance distance to unknown area vs "gain" (size of unknown area)
+    potential_scale: 0.05           # Lower = ignore distance more
+    gain_scale: 1.0                 # Higher = prioritize large unknown areas
+    
+    # Important: Return to start when done
+    return_to_init: true
