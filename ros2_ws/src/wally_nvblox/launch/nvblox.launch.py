@@ -14,7 +14,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
-from launch_ros.actions import ComposableNodeContainer
+from launch_ros.actions import ComposableNodeContainer, Node
 from launch_ros.descriptions import ComposableNode
 
 
@@ -105,5 +105,16 @@ def generate_launch_description():
         composable_node_descriptions=[nvblox_human_node],
         output='screen',
     )
+    
+    # This creates a "fake" odom frame that perfectly follows the map frame
+    static_odom_tf = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='static_transform_publisher_map_odom',
+        arguments=['0', '0', '0', '0', '0', '0', 'map', 'odom']
+    )
 
-    return LaunchDescription(launch_args + [nvblox_container])
+    return LaunchDescription(launch_args + [
+        nvblox_container,
+        static_odom_tf
+    ])

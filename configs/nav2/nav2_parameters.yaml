@@ -18,6 +18,8 @@ controller_server:
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.001
     min_theta_velocity_threshold: 0.001
+    max_vel_theta: 0.5                # NEW: Cap max rotation speed
+    max_accel_theta: 0.2              # NEW: Force a slow, ramping turn
     failure_tolerance: 0.3
     progress_checker_plugin: "progress_checker"
     goal_checker_plugins: ["general_goal_checker"]
@@ -223,10 +225,14 @@ velocity_smoother:
     smoothing_frequency: 20.0
     scale_velocities: false
     feedback: "OPEN_LOOP"
-    max_velocity: [0.3, 0.0, 1.9]                   # Make these reasonable                                             ! NEEDS CONFIGURATION !
-    min_velocity: [-0.3, 0.0, -1.9]                 #  ^
-    max_accel: [1.5, 0.0, 2.0]                      # ^
-    max_decel: [-1.5, 0.0, -2.0]                    # make these reasonable
+    #max_velocity: [0.3, 0.0, 1.9]                   # Make these reasonable                                             ! NEEDS CONFIGURATION !
+    #min_velocity: [-0.3, 0.0, -1.9]
+    max_velocity: [0.3, 0.0, 0.5]                    
+    min_velocity: [-0.3, 0.0, -0.5]                 #  ^
+    #max_accel: [1.5, 0.0, 2.0]                      # ^
+    #max_decel: [-1.5, 0.0, -2.0]                    # make these reasonable
+    max_accel: [0.5, 0.0, 0.2]                       
+    max_decel: [-0.5, 0.0, -0.2]
     odom_topic: "odom"
     odom_duration: 0.1
     deadband_velocity: [0.0, 0.0, 0.0]
