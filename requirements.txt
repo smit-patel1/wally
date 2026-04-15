@@ -1,0 +1,12 @@
+ros-humble-navigation2
+ros-humble-nav2-bringup
+ros-humble-nav2-mppi-controller
+ros-humble-nav2-smac-planner
+ros-humble-nav2-velocity-smoother
+ros-humble-nav2-bt-navigator
+ros-humble-nav2-costmap2d
+ros-humble-nav2-controller
+ros-humble-nav2-planner
+ros-humble-nav2-behaviors
+ros-humble-nav2-lifecycle-manager
+ros-humble-nav2-map-server
