@@ -25,8 +25,8 @@ setup(
     zip_safe=True,
     maintainer='smit',
     maintainer_email='smit@todo.todo',
-    description='Wally bringup launch package for robot description and sensor stack orchestration',
-    license='Apache-2.0',
+    description='TODO: Package description',
+    license='TODO: License declaration',
     extras_require={
         'test': [
             'pytest',

@@ -11,6 +11,7 @@
     mapping_type: "human_with_static_tsdf"
     num_cameras: 1
     use_tf_transforms: true
+    use_segmentation: true
 
     # ── Voxel / map settings ────────────────────────────────────────────
     voxel_size: 0.050

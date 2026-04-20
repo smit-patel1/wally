@@ -39,6 +39,7 @@ Runs `NvbloxHumanNode` in `human_with_static_tsdf` mode:
 - Maintains a separate dynamic occupancy layer for detected humans
 - Publishes 2D ESDF slices for Nav2 costmap integration
 - Pose from FAST-LIO TF tree (`odom` -> `base_link`)
+- Also supports an alternate LiDAR+segmentation mode (`nvblox_lidar.launch.py`) that consumes FAST-LIO `/cloud_registered`
 
 ### Odometry (`wally_fastlio`)
 
@@ -50,7 +51,7 @@ Nav2 with MPPI controller for autonomous indoor navigation.
 
 ### Bringup (`wally_bringup`)
 
-Top-level launch orchestration (WIP).
+Launch orchestration for robot description, LiDAR, camera, and FAST-LIO (`jetson.launch.py`).
 
 ## Docker Setup
 
@@ -83,7 +84,7 @@ TensorRT's `libnvinfer_plugin.so.10` links against `libnvdla_compiler.so`, which
 
 ```
 ros2_ws/src/
-  wally_bringup/       # Top-level launch (WIP)
+  wally_bringup/       # Robot description + sensor/odometry bringup
   wally_fastlio/       # Integrated FAST-LIO package
   livox_ros_driver2/   # Integrated Livox Mid-360 ROS 2 driver
   wally_navigation/    # Nav2 launch and config (WIP)
@@ -108,8 +109,11 @@ source install/setup.bash
 # Terminal 1: Segmentation
 ros2 launch wally_perception segmentation.launch.py
 
-# Terminal 2: Nvblox
+# Terminal 2: Nvblox (default depth+segmentation mode)
 ros2 launch wally_nvblox nvblox.launch.py
+
+# Optional: Nvblox LiDAR+segmentation mode (uses FAST-LIO /cloud_registered)
+ros2 launch wally_nvblox nvblox_lidar.launch.py
 ```
 
 ## Topic Map
@@ -123,6 +127,7 @@ ros2 launch wally_nvblox nvblox.launch.py
 | `/segmentation/image_resized` | sensor_msgs/Image | wally_perception ResizeNode |
 | `/segmentation/camera_info_resized` | sensor_msgs/CameraInfo | wally_perception ResizeNode |
 | `/unet/raw_segmentation_mask` | sensor_msgs/Image | wally_perception UNetDecoder |
+| `/cloud_registered` | sensor_msgs/PointCloud2 | wally_fastlio (for `nvblox_lidar.launch.py`) |
 | `/nvblox_node/mesh` | nvblox_msgs/Mesh | wally_nvblox |
 | `/nvblox_node/static_esdf_pointcloud` | sensor_msgs/PointCloud2 | wally_nvblox |
 

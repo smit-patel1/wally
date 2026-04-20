@@ -1,0 +1,92 @@
+# Nvblox parameters for Wally — LiDAR + segmentation mode.
+#
+# This is the legacy FAST-LIO pointcloud integration path and is kept as an
+# alternate mode to the default depth+segmentation configuration.
+
+/**:
+  ros__parameters:
+    # Multi-mapper mode
+    mapping_type: "human_with_static_tsdf"
+    num_cameras: 1
+    use_tf_transforms: true
+    use_segmentation: true
+
+    # Voxel / map settings
+    voxel_size: 0.10
+    esdf_mode: 1   # 0: 3d, 1: 2d
+    publish_esdf_distance_slice: true
+
+    # Sensor modalities
+    use_color: false
+    use_depth: false
+    use_lidar: true
+
+    # LiDAR settings (Livox Mid-360 defaults)
+    lidar_width: 1800
+    lidar_height: 31
+    lidar_min_valid_range_m: 0.3
+    lidar_max_valid_range_m: 10.0
+
+    # Frame / TF
+    global_frame: "odom"
+
+    # Processing rates
+    tick_period_ms: 10
+    integrate_lidar_rate_hz: 40.0
+    update_mesh_rate_hz: 5.0
+    update_esdf_rate_hz: 10.0
+    publish_layer_pointcloud_rate_hz: 5.0
+    decay_tsdf_rate_hz: 5.0
+    decay_dynamic_occupancy_rate_hz: 10.0
+    clear_map_outside_radius_rate_hz: 1.0
+
+    # Map clearing
+    map_clearing_radius_m: 7.0
+    map_clearing_frame_id: "base_link"
+
+    # Visualization
+    slice_visualization_attachment_frame_id: "base_link"
+    slice_visualization_side_length: 10.0
+    max_back_projection_distance: 10.0
+    back_projection_subsampling: 1
+
+    # QoS / queue
+    input_qos: "SENSOR_DATA"
+    maximum_sensor_message_queue_length: 10
+
+    # Console diagnostics
+    print_rates_to_console: true
+    print_timings_to_console: false
+    print_delays_to_console: false
+    print_statistics_on_console_period_ms: 10000
+
+    # Static mapper
+    static_mapper:
+      do_depth_preprocessing: false
+      projective_integrator_max_integration_distance_m: 10.0
+      projective_integrator_truncation_distance_vox: 4.0
+      projective_integrator_weighting_mode: "inverse_square_tsdf_distance_penalty"
+      projective_integrator_max_weight: 5.0
+      free_region_occupancy_probability: 0.45
+      occupied_region_occupancy_probability: 0.55
+      unobserved_region_occupancy_probability: 0.5
+      occupied_region_half_width_m: 0.1
+      esdf_integrator_min_weight: 0.1
+      esdf_integrator_max_distance_m: 2.0
+      mesh_integrator_min_weight: 0.1
+      mesh_integrator_weld_vertices: true
+      tsdf_decay_factor: 0.95
+      exclude_last_view_from_decay: true
+
+    # Dynamic mapper (human occupancy layer)
+    dynamic_mapper:
+      projective_integrator_max_integration_distance_m: 5.0
+      projective_integrator_truncation_distance_vox: 4.0
+      free_region_occupancy_probability: 0.3
+      occupied_region_occupancy_probability: 0.9
+      unobserved_region_occupancy_probability: 0.35
+      occupied_region_half_width_m: 0.2
+      esdf_integrator_min_weight: 2.0
+      esdf_integrator_max_distance_m: 2.0
+      free_region_decay_probability: 0.55
+      occupied_region_decay_probability: 0.30
