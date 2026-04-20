@@ -103,17 +103,31 @@ colcon build --symlink-install --packages-select wally_perception wally_nvblox
 source install/setup.bash
 ```
 
+### Launch Dependencies (required for full Jetson stack)
+
+`jetson.launch.py` expects these external ROS packages to be installed in the active environment:
+
+- `depthai_ros_driver` (apt: `ros-humble-depthai-ros-driver`)
+- `nvblox_ros` (apt: `ros-humble-nvblox-ros`)
+
+Install/check from the repo root:
+
+```bash
+# Install missing external ROS deps
+./scripts/install_ros_dependencies.sh
+
+# Or only check whether they are discoverable
+./scripts/install_ros_dependencies.sh --check
+```
+
 ### Running
 
 ```bash
-# Terminal 1: Segmentation
-ros2 launch wally_perception segmentation.launch.py
+# Jetson full stack (description + LiDAR + camera + FAST-LIO + segmentation + nvblox)
+ros2 launch wally_bringup jetson.launch.py
 
-# Terminal 2: Nvblox (default depth+segmentation mode)
-ros2 launch wally_nvblox nvblox.launch.py
-
-# Optional: Nvblox LiDAR+segmentation mode (uses FAST-LIO /cloud_registered)
-ros2 launch wally_nvblox nvblox_lidar.launch.py
+# Optional: switch nvblox to LiDAR mode
+ros2 launch wally_bringup jetson.launch.py use_lidar_nvblox:=true
 ```
 
 ## Topic Map
