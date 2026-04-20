@@ -10,9 +10,12 @@ from launch.substitutions import LaunchConfiguration
 
 def generate_launch_description():
     use_sim_time = LaunchConfiguration('use_sim_time')
+    camera_model = LaunchConfiguration('camera_model')
 
     declare_use_sim_time = DeclareLaunchArgument(
         'use_sim_time', default_value='false')
+    declare_camera_model = DeclareLaunchArgument(
+        'camera_model', default_value='OAK-D-LR')
 
     # 1. Robot description + TF bridges
     robot_description = IncludeLaunchDescription(
@@ -37,6 +40,7 @@ def generate_launch_description():
             os.path.join(
                 get_package_share_directory('wally_bringup'),
                 'launch', 'camera.launch.py')),
+        launch_arguments={'camera_model': camera_model}.items(),
     )
 
     # 4. FAST-LIO (delayed 3s to let LiDAR initialize)
@@ -58,6 +62,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         declare_use_sim_time,
+        declare_camera_model,
         robot_description,
         lidar,
         camera,
