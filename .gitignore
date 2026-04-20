@@ -6,9 +6,8 @@ ros2_ws/build/
 ros2_ws/install/
 ros2_ws/log/
 
-# Third-party ROS packages (cloned separately, not our code)
+# Third-party ROS package kept local as upstream mirror
 ros2_ws/src/FAST_LIO/
-ros2_ws/src/livox_ros_driver2/
 
 # Docker (cloned NVIDIA repos — large, not our code)
 docker/

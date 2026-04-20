@@ -84,7 +84,8 @@ TensorRT's `libnvinfer_plugin.so.10` links against `libnvdla_compiler.so`, which
 ```
 ros2_ws/src/
   wally_bringup/       # Top-level launch (WIP)
-  wally_fastlio/       # FAST-LIO launch and config (WIP)
+  wally_fastlio/       # Integrated FAST-LIO package
+  livox_ros_driver2/   # Integrated Livox Mid-360 ROS 2 driver
   wally_navigation/    # Nav2 launch and config (WIP)
   wally_nvblox/        # Nvblox human-aware 3D reconstruction
   wally_perception/    # Isaac ROS U-Net segmentation pipeline
