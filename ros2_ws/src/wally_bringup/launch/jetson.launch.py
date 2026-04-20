@@ -39,14 +39,14 @@ def generate_launch_description():
                 'launch', 'camera.launch.py')),
     )
 
-    # 4. Wally FAST-LIO (delayed 3s to let LiDAR initialize)
+    # 4. FAST-LIO (delayed 3s to let LiDAR initialize)
     fast_lio = TimerAction(
         period=3.0,
         actions=[
             IncludeLaunchDescription(
                 PythonLaunchDescriptionSource(
                     os.path.join(
-                        get_package_share_directory('wally_fastlio'),
+                        get_package_share_directory('fast_lio'),
                         'launch', 'mapping.launch.py')),
                 launch_arguments={
                     'use_sim_time': use_sim_time,

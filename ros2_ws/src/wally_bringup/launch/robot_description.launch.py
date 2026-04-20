@@ -34,7 +34,30 @@ def generate_launch_description():
         output='screen',
     )
 
+    # FAST-LIO publishes TF: camera_init -> body
+    # The rest of the stack expects: odom -> base_link
+    # Bridge with two static transforms:
+    #   odom -> camera_init (identity)
+    #   body -> base_link (identity)
+    tf_odom_to_camera_init = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        arguments=['0', '0', '0', '0', '0', '0',
+                   'odom', 'camera_init'],
+        parameters=[{'use_sim_time': use_sim_time}],
+    )
+
+    tf_body_to_base_link = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        arguments=['0', '0', '0', '0', '0', '0',
+                   'body', 'base_link'],
+        parameters=[{'use_sim_time': use_sim_time}],
+    )
+
     return LaunchDescription([
         declare_use_sim_time,
         robot_state_publisher,
+        tf_odom_to_camera_init,
+        tf_body_to_base_link,
     ])
