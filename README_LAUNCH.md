@@ -130,8 +130,8 @@ ros2 launch wally_nvblox nvblox.launch.py
 
 ## 5) Documented issues (current state)
 
-1. **nvblox not working (host):** `nvblox_ros` not available in host ROS environment.
+1. **nvblox host launch not supported:** `nvblox_ros` is still not available in host ROS environment. Run nvblox from the Isaac ROS Docker container.
 2. **segmentation not working:** Isaac ROS segmentation dependencies are not available in host environment.
 3. **frontier_exploration not working (full stack):** Turtlebot4 simulation dependencies are missing (for the full-stack launch files).
-4. **docker image for nvblox not there:** no confirmed runnable Isaac ROS container/image currently available.
+4. **Isaac ROS Docker image/container (nvblox):** available and confirmed working for individual nvblox launch.
 5. **nav2 not fully working:** Nav2 core is installed, but full integration with current robot stack/frontier flow is incomplete.
